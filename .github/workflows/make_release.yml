@@ -48,7 +48,8 @@ jobs:
 
     - name: Configure and build
       run: |
-        export OPENSSL_ROOT_DIR=~/openssl-1.1.1n
+        export OPENSSL_ROOT_DIR=${{ github.workspace }}/openssl-1.1.1n
+        echo $OPENSSL_ROOT_DIR
         cd ${{ inputs.gamelift }}
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_FOR_UNREAL=1 -DRUN_CLANG_FORMAT=0
         cmake --build build -j
