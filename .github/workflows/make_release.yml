@@ -53,4 +53,28 @@ jobs:
         cd ${{ inputs.gamelift }}
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_FOR_UNREAL=1 -DRUN_CLANG_FORMAT=0
         cmake --build build -j
+
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install tools
+      run: |
+        choco install cmake
+        choco install curl
+        choco install 7zip
+        
+    - name: Download and unzip gamelift
+      run: |
+        curl -o gamelift.zip https://gamelift-server-sdk-release.s3.us-west-2.amazonaws.com/cpp/${{ inputs.gamelift }}.zip
+        7z e gamelift.zip
+
+    - name: Configure and build
+      run: |
+        cd ${{ inputs.gamelift }}
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_FOR_UNREAL=1 -DRUN_CLANG_FORMAT=0
+        cmake --build build --config Release
+        
+      
        
