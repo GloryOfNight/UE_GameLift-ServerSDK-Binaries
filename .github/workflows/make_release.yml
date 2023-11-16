@@ -83,7 +83,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ inputs.gamelift }}/build/gamelift/prefix/libaws-cpp-sdk-gamelift-server.so
+          asset_path: ${{ inputs.gamelift }}/build/prefix/lib/libaws-cpp-sdk-gamelift-server.so
           asset_name: linux-x64-libaws-cpp-sdk-gamelift-server.so
           asset_content_type: application/executable
 
@@ -118,7 +118,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ inputs.gamelift }}/build/gamelift/prefix/aws-cpp-sdk-gamelift-server.lib
+          asset_path: ${{ inputs.gamelift }}/build/prefix/lib/aws-cpp-sdk-gamelift-server.lib
           asset_name: win-x64-libaws-cpp-sdk-gamelift-server.lib
           asset_content_type: application/executable
 
@@ -129,7 +129,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ inputs.gamelift }}/build/gamelift/prefix/aws-cpp-sdk-gamelift-server.dll
+          asset_path: ${{ inputs.gamelift }}/build/prefix/lib/aws-cpp-sdk-gamelift-server.dll
           asset_name: win-x64-libaws-cpp-sdk-gamelift-server.dll
           asset_content_type: application/executable
         
