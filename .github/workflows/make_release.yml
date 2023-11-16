@@ -15,7 +15,7 @@ on:
         type: string
 
 jobs:
-  gamelift_build_linux:
+  gamelift_build_linux_x64:
     name: Build and upload Linux binary
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +27,7 @@ jobs:
        sudo apt-get install -y unzip
        wget https://gamelift-server-sdk-release.s3.us-west-2.amazonaws.com/cpp/${{ inputs.gamelift }}.zip -O gamelift.zip
        unzip -q gamelift.zip
-       echo "download and unzip finished, files:"
+       echo "download and unzip gamelift finished, files:"
        ls
 
     - name: Install tools
@@ -36,6 +36,14 @@ jobs:
        sudo apt-get install -y cmake
        sudo apt-get install -y gcc
        sudo apt-get install -y g++
+    - name: Download and build OpenSSL 1.1.1n
+      run: |
+        wget -c https://www.openssl.org/source/old/1.1.1/openssl-1.1.1n.tar.gz -O - | tar -xz
+        echo "download and unzip openssl finished, files:"
+        ls
+        cd openssl-1.1.1n
+        ./config no-shared
+        make -j
 
     - name: Configure and build
       run: |
