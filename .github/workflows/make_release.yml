@@ -68,7 +68,7 @@ jobs:
     - name: Download and unzip gamelift
       run: |
         curl -o gamelift.zip https://gamelift-server-sdk-release.s3.us-west-2.amazonaws.com/cpp/${{ inputs.gamelift }}.zip
-        7z e gamelift.zip
+        7z e gamelift.zip -o ${{ inputs.gamelift }}
 
     - name: Configure and build
       run: |
