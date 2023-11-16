@@ -27,8 +27,8 @@ jobs:
        sudo apt-get install -y unzip
        wget https://gamelift-server-sdk-release.s3.us-west-2.amazonaws.com/cpp/${{ inputs.gamelift }}.zip -O gamelift.zip
        unzip -q gamelift.zip
+       echo "download and unzip finished, files:"
        ls
-       cd ${{ inputs.gamelift }}
 
     - name: Install tools
       run: |
@@ -39,6 +39,7 @@ jobs:
 
     - name: Configure and build
       run: |
+        cd ${{ inputs.gamelift }}
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_FOR_UNREAL=1 -DRUN_CLANG_FORMAT=0
         cmake --build build -j
        
