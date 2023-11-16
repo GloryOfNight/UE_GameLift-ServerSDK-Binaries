@@ -3,9 +3,9 @@ name: Make release
 on:
   workflow_dispatch:
     inputs:
-      gamelift_zip:
+      gamelift:
         description: 'GameLift ZIPed sources'
-        default: 'https://gamelift-server-sdk-release.s3.us-west-2.amazonaws.com/cpp/GameLift-Cpp-ServerSDK-5.0.4.zip'
+        default: 'GameLift-Cpp-ServerSDK-5.0.4'
         required: true
         type: string
       tag:
@@ -25,8 +25,10 @@ jobs:
       run: |
        sudo apt-get update
        sudo apt-get install -y unzip
-       wget ${{ inputs.gamelift_zip }} -O gamelift.zip
-       unzip -q gamelift.zip -d gamelift
+       wget https://gamelift-server-sdk-release.s3.us-west-2.amazonaws.com/cpp/${{ inputs.gamelift }}.zip -O gamelift.zip
+       unzip -q gamelift.zip
+       ls
+       cd ${{ inputs.gamelift }}
 
     - name: Install tools
       run: |
@@ -37,6 +39,6 @@ jobs:
 
     - name: Configure and build
       run: |
-        cmake -S gamelift -B gamelift/build -DCMAKE_BUILD_TYPE=Release -DBUILD_FOR_UNREAL=1 -DRUN_CLANG_FORMAT=0
-        cmake --build gamelift/build -j
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_FOR_UNREAL=1 -DRUN_CLANG_FORMAT=0
+        cmake --build build -j
        
